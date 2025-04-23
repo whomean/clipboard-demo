@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clipboard Hijack</title>
+</head>
+<body>
+  <h1>Clipboard Demo</h1>
+  <p>Kliknij w pole, skopiuj tekst i wklej gdziekolwiek:</p>
+  <input id="text" value="Skopiuj mnie!" style="width: 80%; padding: 0.5rem;" />
+  <script>
+    const input = document.getElementById("text");
+    input.addEventListener("copy", (e) => {
+      e.clipboardData.setData("text/plain", "Zmieniona zawartość clipboardu! 😈");
+      e.preventDefault();
+      alert("Clipboard został nadpisany!");
+    });
+  </script>
+</body>
+</html>
