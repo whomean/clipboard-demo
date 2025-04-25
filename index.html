@@ -1,20 +1,157 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Clipboard Hijack</title>
+  <meta charset="UTF-8" />
+  <title>Demo Bank – Dane do przelewu</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+    .warning-banner {
+      background-color: yellow;
+      color: red;
+      text-align: center;
+      font-weight: bold;
+      padding: 10px 0;
+      font-size: 1.1em;
+    }
+    header {
+      background-color: #003366;
+      color: white;
+      padding: 15px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    header .logo {
+      font-size: 1.5em;
+      font-weight: bold;
+    }
+    header nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 15px;
+      font-size: 0.9em;
+    }
+    header nav a:hover {
+      text-decoration: underline;
+    }
+    .container {
+      max-width: 600px;
+      margin: 40px auto;
+      background-color: #fff;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .container h1 {
+      text-align: center;
+      color: red;
+      font-size: 1.5em;
+      margin-top: 0;
+    }
+    .details-title {
+      text-align: center;
+      font-size: 1.2em;
+      margin: 20px 0 10px;
+      color: #333;
+    }
+    table.details {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    table.details td {
+      padding: 8px 5px;
+      vertical-align: top;
+    }
+    table.details .label {
+      font-weight: bold;
+      color: #555;
+      width: 40%;
+      /* Align labels to the right for a neat layout */
+      text-align: right;
+      padding-right: 10px;
+    }
+    table.details .value {
+      color: #000;
+      text-align: left;
+    }
+    footer {
+      text-align: center;
+      font-size: 0.8em;
+      color: #888;
+      margin: 20px 0;
+    }
+  </style>
 </head>
 <body>
-  <h1>Clipboard Demo</h1>
-  <p>Kliknij w pole, skopiuj tekst i wklej gdziekolwiek:</p>
-  <input id="text" value="Skopiuj mnie!" style="width: 80%; padding: 0.5rem;" />
+
+  <!-- Top warning banner -->
+  <div class="warning-banner">
+    FAŁSZYWA STRONA TESTOWA – TYLKO DO CELÓW EDUKACYJNYCH
+  </div>
+
+  <!-- Simulated site header -->
+  <header>
+    <div class="logo">Bank Demo</div>
+    <nav>
+      <a href="#">Strona główna</a>
+      <a href="#">Kontakt</a>
+      <a href="#">Pomoc</a>
+      <a href="#">Wyloguj</a>
+    </nav>
+  </header>
+
+  <!-- Main content container -->
+  <main class="container">
+    <!-- Big central warning text -->
+    <h1>FAŁSZYWA STRONA TESTOWA</h1>
+
+    <!-- Section title for transfer details -->
+    <h2 class="details-title">Dane do przelewu</h2>
+
+    <!-- Transfer details table -->
+    <table class="details">
+      <tr>
+        <td class="label">Nazwa odbiorcy:</td>
+        <td class="value">Jan Kowalski</td>
+      </tr>
+      <tr>
+        <td class="label">Numer rachunku:</td>
+        <td class="value">
+          <span id="account-number">12 3456 7890 1234 5678 9012 3456</span>
+        </td>
+      </tr>
+      <tr>
+        <td class="label">Tytuł przelewu:</td>
+        <td class="value">Zapłata za zamówienie #12345</td>
+      </tr>
+      <tr>
+        <td class="label">Kwota:</td>
+        <td class="value">123,45 PLN</td>
+      </tr>
+    </table>
+  </main>
+
+  <!-- Footer with a generic note -->
+  <footer>© 2025 Bank Demo – Wszelkie prawa zastrzeżone.</footer>
+
   <script>
-    const input = document.getElementById("text");
-    input.addEventListener("copy", (e) => {
-      e.clipboardData.setData("text/plain", "Zmieniona zawartość clipboardu! 😈");
-      e.preventDefault();
+    // Intercept copy events on the account number to replace clipboard content
+    var accNumberElement = document.getElementById('account-number');
+    accNumberElement.addEventListener('copy', function(event) {
+      var clipboardData = event.clipboardData || window.clipboardData;
+      if (clipboardData) {
+        // Replace copied text with the alternate account number
+        clipboardData.setData('text/plain', '98 7654 3210 9876 5432 1098 7654');
+        event.preventDefault();  // Prevent default copy behavior
+      }
     });
   </script>
+
 </body>
 </html>
